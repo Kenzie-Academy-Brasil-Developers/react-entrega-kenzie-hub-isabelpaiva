@@ -8,6 +8,7 @@ export const LoginSection = styled.section`
   justify-content: center;
   align-items: center;
   margin-top: 10%;
+
 `;
 
 export const LinkStyled = styled(Link)`
@@ -17,7 +18,7 @@ export const LinkStyled = styled(Link)`
 
 export const Title = styled.h1`
   text-align: center;
-  color: var(--pink-primary);
+  color: var(--grey);
   font-size: 20px;
   margin-bottom: 18px;
 
@@ -119,3 +120,7 @@ export const LoginForm = styled.form`
     min-width: 400px;
   }
 `;
+
+
+//
+

@@ -21,10 +21,13 @@ const schema = yup
   .required();
 
 export const Login = () => {
+  const { onSubmitLogin, requisition } = useContext(UserContext);
 
-  const {onSubmitLogin, requisition} = useContext(UserContext)
-
-  const {  register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema)});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
   return (
     <>

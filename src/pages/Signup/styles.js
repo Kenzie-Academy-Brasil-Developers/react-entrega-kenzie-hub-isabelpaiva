@@ -8,7 +8,7 @@ export const StyledRegister = styled.section`
   margin-bottom: -40px;
 
   h2 {
-    color: var(--pink-primary);
+    color: white;
   }
 
 

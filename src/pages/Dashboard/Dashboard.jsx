@@ -1,51 +1,41 @@
-
 import React, { useState } from "react";
-
-import { Container, DashboardDiv, UserInfos, MainDash, EmptyDiv } from "./styles";
+import {
+  Container,
+  DashboardDiv,
+  UserInfos,
+  MainDash,
+  EmptyDiv,
+} from "./styles";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import { useContext } from "react";
-import ModalAddTech from "../../components/ModalAddTech";
-import Card from "../../components/Card";
-import ModalEditTech from "../../components/ModalEditTech";
 
 export const Dashboard = () => {
-  const { user, clearLocalStorage, modalOpen, setModalOpen, modalEdit } =
+  const { user, clearLocalStorage, setModalOpen } =
     useContext(UserContext);
+
+    const userName = user.name;
+    const userEmail = user.email;
 
   return (
     <Container>
       <DashboardDiv>
         <section>
-          <h1>Kenzie Hub</h1>
+          <h1>ConnectBooker</h1>
           <button onClick={clearLocalStorage}>Sair</button>
         </section>
       </DashboardDiv>
 
       <UserInfos>
-        <h2> Olá, {user.name}</h2>
-        <p>{user.course_module}</p>
+        <h2> Olá, {userName}</h2>
+        <p>{userEmail}</p>
       </UserInfos>
       <MainDash>
-        <p>Tecnologias</p>
+        <p>Seus contatos</p>
         <button onClick={() => setModalOpen(true)}>+</button>
       </MainDash>
-      {
-        user.techs?.length? 
-        (
-          <ul>
-           { user.techs.map((tech) => (
-             <Card key={tech.id} id={tech.id} status={tech.status} title={tech.title}/>
-            ))}
-          </ul>
-        )
-        : 
         <EmptyDiv>
-          <h3> Você ainda não adicionou nenhuma tecnologia :(</h3>
+          <h3> Você ainda não adicionou nenhum contato :(</h3>
         </EmptyDiv>
-      }
-
-        {modalOpen ? <ModalAddTech /> : null}
-        {modalEdit ? <ModalEditTech /> : null}
     </Container>
   );
 };

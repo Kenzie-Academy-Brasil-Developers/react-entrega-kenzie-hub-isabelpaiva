@@ -19,8 +19,9 @@ export const UserProvider = ({ children }) => {
   const onSubmit = async (data) => {
     delete data.passwordConfirmation;
     try {
-      await api.post("/users", data);
+      await api.post("http://localhost:3000/users", data);
       navigate("/");
+      console.log(data)
       toast.success("Conta criada com sucesso!");
     } catch (error) {
       toast.error("Ops! Algo deu errado");
@@ -29,12 +30,13 @@ export const UserProvider = ({ children }) => {
 
   const onSubmitLogin = async (data) => {
     api
-      .post("https://kenziehub.herokuapp.com/sessions", data)
+      .post("http://localhost:3000/login", data)
       .then((response) => {
         setUser(response.data);
-
+        console.log(response)  
+    
         localStorage.setItem("@TOKEN", response.data.token);
-        localStorage.setItem("@USERID", response.data.user.id);
+        localStorage.setItem("@USERID", response.data.userId);
       })
       .catch((error) => {
         toast.error("Email ou senha incorretos");
@@ -46,10 +48,12 @@ export const UserProvider = ({ children }) => {
       if (token) {
         api.defaults.headers.authorization = `Bearer ${token}`;
         api
-          .get("/profile", data)
+          .get("http://localhost:3000/users", data)
           .then((response) => {
             setUser(response.data);
             navigate("/dashboard");
+            console.log(response.data)
+          
           })
           .catch((error) => 
           toast.error("Algo deu errado!"));
@@ -58,7 +62,6 @@ export const UserProvider = ({ children }) => {
 
     requisition();
   } , [token]);
-
 
   const clearLocalStorage = () => {
     localStorage.clear();
@@ -78,10 +81,8 @@ export const UserProvider = ({ children }) => {
   }, [token]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, onSubmit, onSubmitLogin, skill, setSkill, clearLocalStorage, state, setState, modalOpen, setModalOpen, modalEdit, setModalEdit }}>
+    <UserContext.Provider value={{ user, setUser, onSubmit,onSubmitLogin, skill,setSkill, clearLocalStorage, state, setState, modalOpen, setModalOpen, modalEdit, setModalEdit }}>
       {children}
     </UserContext.Provider>
   );
 };
-
-

@@ -12,12 +12,10 @@ const schema = yup
   .object({
     name: yup.string().required("O nome é obrigatório."),
     email: yup.string().email().required("O email é obrigatório."),
-    bio: yup.string().required("Uma biografia é obrigatória."),
-    contact: yup.string().required("Cadastre algum tipo de contato."),
-    course_module: yup.string().required(),
+    phone: yup.string().required("Cadastre algum tipo de contato."),
     password: yup
       .string()
-      .matches(/.{8}/, "Deve conter no mínimo 8 caracteres.")
+      .matches(/.{4}/, "Deve conter no mínimo 8 caracteres.")
       .required("Senha Obrigatoria."),
     passwordConfirmation: yup
       .string()
@@ -41,7 +39,7 @@ const Signup = () => {
   return (
     <>
       <StyledRegister>
-        <h2>Kenzie Hub</h2>
+        <h2>ConnectBooker</h2>
 
         <Link to="/">
           <button>Voltar</button>
@@ -61,7 +59,7 @@ const Signup = () => {
               label="Nome"
               placeholder="Digite aqui seu nome"
               errors={errors.name?.message}
-              {...register("name")}
+                {...register("name")}
             ></Input>
 
             <Input
@@ -93,35 +91,15 @@ const Signup = () => {
               errors={errors.passwordConfirmation?.message}
               {...register("passwordConfirmation")}
             ></Input>
-
-            <Input
-              id="bio"
-              label="Bio"
-              placeholder="Digite aqui sua biografia"
-              name="bio"
-              type="text"
-              errors={errors.bio?.message}
-              {...register("bio")}
-            ></Input>
-
             <Input
               type="text"
-              name="contact"
+              name="phone"
               id="contact"
-              placeholder="Opção de contato"
+              placeholder="Telefone"
               label="Contato"
-              {...register("contact")}
-              errors={errors.contact?.message}
+              {...register("phone")}
+              errors={errors.phone?.message}
             ></Input>
-
-            <label htmlFor="module">Selecionar módulo</label>
-            <select id="module" {...register("course_module")}>
-              <option>Primeiro módulo (Introdução ao Frontend)</option>
-              <option>Segundo módulo (Frontend Avançado)</option>
-              <option>Terceiro módulo (Introdução ao Backend)</option>
-              <option>Quarto módulo (Backend Avançado)</option>
-            </select>
-            <p className="errorMessage">{errors.module?.message}</p>
             <button type="submit">Cadastrar</button>
           </form>
         </div>
